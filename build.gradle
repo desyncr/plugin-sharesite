@@ -13,7 +13,7 @@ compileJava {
     targetCompatibility = 1.7
 }
 
-version = "0.4.7.1m"
+version = "0.4.7"
 
 repositories {
     mavenLocal()
