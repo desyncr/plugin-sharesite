@@ -56,8 +56,8 @@ public class Freesite implements Comparable<Freesite> {
 		description = "Write a short description shown in search results here.";
 		activelinkUri = "";
 
-		String csstemplate = "res/templates/style.css";
-		String texttemplate = "res/templates/content.txt";
+		String csstemplate = "resources/templates/style.css";
+		String texttemplate = "resources/templates/content.txt";
 
 		try (
 			 InputStream is = Plugin.class.getClassLoader().getResourceAsStream(csstemplate);
@@ -245,7 +245,7 @@ public class Freesite implements Comparable<Freesite> {
 		String insertDate = dateFormat.format(calendar.getTime());
 
 		// Pass through the HTML file, substituting in the real content
-		String template = "res/templates/index.html";
+		String template = "resources/templates/index.html";
 
 		InputStream is = Plugin.class.getClassLoader().getResourceAsStream(template);
 		if (is == null) throw new Exception("Couldn't load \"" + template + "\"");

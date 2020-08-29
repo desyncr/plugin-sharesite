@@ -14,8 +14,6 @@ import freenet.pluginmanager.FredPluginVersioned;
 import freenet.pluginmanager.PluginRespirator;
 import freenet.support.Ticker;
 
-import java.awt.GraphicsEnvironment;
-
 /**
  * This is the main class, the first one executed by Freenet.
  * Only one instance exists, and can be accessed from anywhere using
@@ -100,7 +98,7 @@ public class Plugin implements FredPlugin, FredPluginVersioned, FredPluginRealVe
 
 	@Override
 	public String getL10nFilesBasePath() {
-		return "res/l10n/";
+		return "resources/l10n/";
 	}
 
 	@Override
