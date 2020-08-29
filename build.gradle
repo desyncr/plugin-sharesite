@@ -20,6 +20,7 @@ repositories {
     maven { url "http://4thline.org/m2" }
     maven { url 'https://mvn.freenetproject.org' }
     jcenter()
+    maven { url 'https://jitpack.io' }
 }
 
 configurations {
@@ -28,8 +29,7 @@ configurations {
 
 dependencies {
     compile group: 'net.java', name: 'textile-j', version: '2.2'
-    compile group: 'org.freenetproject', name: 'fred', version: ''
-    compile files('libs/freenet.jar')
+    compile group: 'com.github.freenet-mobile', name: 'fred', version: '1486.5m'
     extraLibs group: 'org.fourthline.cling', name: 'cling-core', version: '2.1.0'
     extraLibs group: 'org.fourthline.cling', name: 'cling-support', version: '2.1.0'
     configurations.compile.extendsFrom(configurations.extraLibs)
