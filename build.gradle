@@ -16,16 +16,13 @@ compileJava {
 version = "0.4.7"
 
 repositories {
-    mavenLocal()
-    maven { url "http://4thline.org/m2" }
-    maven { url 'https://mvn.freenetproject.org' }
     jcenter()
     maven { url 'https://jitpack.io' }
 }
 
 dependencies {
     implementation group: 'net.java', name: 'textile-j', version: '2.2'
-    implementation group: 'com.github.freenet-mobile', name: 'fred', version: '1486.5m'
+    implementation group: 'com.github.freenet-mobile', name: 'fred', version: '1486.6m'
 }
 
 dependencyVerification {
