@@ -16,10 +16,9 @@ compileJava {
 version = "0.4.7"
 
 repositories {
-    mavenLocal()
     maven { url "http://4thline.org/m2" }
-    maven { url 'https://mvn.freenetproject.org' }
     jcenter()
+    maven { url 'https://jitpack.io' }
 }
 
 configurations {
@@ -27,7 +26,7 @@ configurations {
 }
 
 dependencies {
-    implementation group: 'org.freenetproject', name: 'fred', version: 'build+'
+    implementation group: 'com.github.freenet-mobile', name: 'fred', version: '1486.6m'
     extraLibs group: 'net.java', name: 'textile-j', version: '2.2'
     configurations.compile.extendsFrom(configurations.extraLibs)
 }
@@ -39,7 +38,6 @@ dependencyVerification {
 }
 
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 
