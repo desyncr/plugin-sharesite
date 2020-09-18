@@ -16,17 +16,26 @@ compileJava {
 version = "0.4.7"
 
 repositories {
+    mavenLocal()
+    maven { url "http://4thline.org/m2" }
+    maven { url 'https://mvn.freenetproject.org' }
     jcenter()
-    maven { url 'https://jitpack.io' }
+}
+
+configurations {
+    extraLibs
 }
 
 dependencies {
-    implementation group: 'net.java', name: 'textile-j', version: '2.2'
-    implementation group: 'com.github.freenet-mobile', name: 'fred', version: '1486.6m'
+    implementation group: 'org.freenetproject', name: 'fred', version: 'build+'
+    extraLibs group: 'net.java', name: 'textile-j', version: '2.2'
+    configurations.compile.extendsFrom(configurations.extraLibs)
 }
 
 dependencyVerification {
-    verify = []
+    verify = [
+        'net.java:textile-j:e984944776943f1846543d93cdf2feefb266225a567f46ab665a672c79e52418',
+    ]
 }
 
 import java.nio.file.Files;
@@ -46,6 +55,10 @@ jar {
                    'Built-By': System.getProperty('user.name'),
                    'Built-Date': getMTime("src/main/java/plugins/Sharesite/Plugin.java"),
                    'Built-JDK': System.getProperty('java.version')
+    }
+
+    from {
+        configurations.extraLibs.collect { it.isDirectory() ? it : zipTree(it) }
     }
 
     from("src/main/java") {

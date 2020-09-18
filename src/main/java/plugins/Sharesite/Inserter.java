@@ -10,6 +10,7 @@ import java.awt.image.*;
 import javax.imageio.ImageIO;
 import java.io.ByteArrayOutputStream;
 
+import com.sun.jna.Platform;
 import freenet.client.HighLevelSimpleClient;
 import freenet.keys.FreenetURI;
 import freenet.node.RequestStarter;
@@ -122,25 +123,9 @@ public class Inserter extends Thread {
 			ArrayBucket text = new ArrayBucket(c.getText().getBytes("UTF-8"));
 			ArrayBucket keys = new ArrayBucket(c.getKeys().getBytes("UTF-8"));
 
-	    if (c.getActivelinkUri().equals(""))
-		{
-			BufferedImage img = ActivelinkCreator.create(c.getName());
-			ByteArrayOutputStream baos = new ByteArrayOutputStream(5000);
-			ImageIO.write(img, "PNG", baos);
-			ArrayBucket activelinkData = new ArrayBucket(baos.toByteArray());
-			Plugin.instance.logger.putstr("444");
-			bucketsByName.put("activelink.png", activelinkData);
-		}
-	    else
-		{
-			FreenetURI activelinkURI = new FreenetURI(c.getActivelinkUri());
-			/* redirect to the activelinkUri */
-			/* TODO: discuss whether it is problematic that
-			 * this might allow causing other sites to preload
-			 * by using an image which is in the other container */
-			ManifestElement activelinkManifest = new ManifestElement("activelink.png", activelinkURI, null);
-			bucketsByName.put("activelink.png", activelinkManifest);
-		}
+			if (!Platform.isAndroid()) {
+				bucketsByName.put("activelink.png", createOrUseActiveLink(c.getActivelinkUri(), c.getName()));
+			}
 
 			bucketsByName.put("index.html", html);
 			bucketsByName.put("style.css", css);
@@ -171,5 +156,25 @@ public class Inserter extends Thread {
 			e.printStackTrace(pw);
 			Plugin.instance.logger.putstr(e.getMessage());
 		}
+	}
+
+	private Object createOrUseActiveLink(String activelinkUri, String name) throws IOException {
+		if (activelinkUri.equals(""))
+		{
+			BufferedImage img = ActivelinkCreator.create(name);
+			ByteArrayOutputStream baos = new ByteArrayOutputStream(5000);
+			ImageIO.write(img, "PNG", baos);
+			ArrayBucket activelinkData = new ArrayBucket(baos.toByteArray());
+			Plugin.instance.logger.putstr("444");
+
+			return activelinkData;
+		}
+
+		FreenetURI activelinkURI = new FreenetURI(activelinkUri);
+		/* redirect to the activelinkUri */
+		/* TODO: discuss whether it is problematic that
+		 * this might allow causing other sites to preload
+		 * by using an image which is in the other container */
+		return new ManifestElement("activelink.png", activelinkURI, null);
 	}
 }
