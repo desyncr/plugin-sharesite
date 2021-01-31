@@ -1,13 +1,11 @@
 body {
-	min-width: 450px;
-	width: 49%;
-	max-width: 60em;
 	text-align: left;
 	line-height: 1.4em;
-	margin: auto;
 	background: #f8f8f8;
    	color: #101010;
 	font-family: serif;
+    width: 80%;
+    margin: 0 auto;
 }
 
 #site-header {
